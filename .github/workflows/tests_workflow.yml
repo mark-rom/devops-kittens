@@ -22,7 +22,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: pavelsergeev/kittens-store:{{ github.sha }}
+          tags: pavelsergeev/kittens-store:${{ github.sha }}
 
   test:
     name: Run autotests
@@ -41,7 +41,7 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
           echo DB_HOST=${{ secrets.DATABASE_HOST }} >> .env
           echo DB_PORT=${{ secrets.DATABASE_PORT }} >> .env
-          export IMAGE_TAG={{ github.sha }}
+          export IMAGE_TAG=${{ github.sha }}
           docker compose up -d
           docker-compose exec app bundle exec rake db:create
           docker-compose exec app bundle exec rake db:migrate
