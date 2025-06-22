@@ -28,6 +28,7 @@ jobs:
     name: Run autotests
     runs-on: ubuntu-latest
     needs: build
+    environment: test
 
     steps:
       - name: Check out the repo
