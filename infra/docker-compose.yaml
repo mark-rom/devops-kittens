@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    env_file: ./.env
+
+  app:
+    image: pavelsergeev/kittens-store:${IMAGE_TAG:-latest}
+    # build:
+    #   context: ../.
+    #   dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "1234:1234"
+    env_file: ./.env
+    environment:
+      DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+      RACK_ENV: test
