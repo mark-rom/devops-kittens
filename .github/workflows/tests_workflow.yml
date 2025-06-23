@@ -46,6 +46,7 @@ jobs:
           echo 'postgres://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }}' >> .env
           echo RACK_ENV=test >> .env
           export IMAGE_TAG=${{ github.sha }}
+          cat .env | grep postgres
           docker compose up -d
           sleep 5
           docker compose ps
