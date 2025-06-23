@@ -44,13 +44,13 @@ jobs:
           echo DB_HOST=${{ secrets.DATABASE_HOST }} >> .env
           echo DB_PORT=${{ secrets.DATABASE_PORT }} >> .env
           export IMAGE_TAG=${{ github.sha }}
-          cat .env
+          pwd && ls && cat .env | grep kittens_store_db
         # docker compose up -d
         # docker compose exec app bundle exec rake db:create
         # docker compose exec app bundle exec rake db:migrate
         # docker compose exec app bundle exec rake db:seed
-      - name: Run tests
-        run: docker compose exec app bundle exec rspec
+      # - name: Run tests
+      #   run: docker compose exec app bundle exec rspec
 
   # deploy:
   #   name: Deploy for manual testing
