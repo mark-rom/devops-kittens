@@ -43,14 +43,16 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
           echo DB_HOST=${{ secrets.DATABASE_HOST }} >> .env
           echo DB_PORT=${{ secrets.DATABASE_PORT }} >> .env
+          echo postgres://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }} >> .env
+          echo RACK_ENV=test >> .env
           export IMAGE_TAG=${{ github.sha }}
           pwd && ls && cat .env | grep kittens_store_db
-        # docker compose up -d
-        # docker compose exec app bundle exec rake db:create
-        # docker compose exec app bundle exec rake db:migrate
-        # docker compose exec app bundle exec rake db:seed
-      # - name: Run tests
-      #   run: docker compose exec app bundle exec rspec
+          docker compose up -d
+          docker compose exec app bundle exec rake db:create
+          docker compose exec app bundle exec rake db:migrate
+          docker compose exec app bundle exec rake db:seed
+      - name: Run tests
+        run: docker compose exec app bundle exec rspec
 
   # deploy:
   #   name: Deploy for manual testing
