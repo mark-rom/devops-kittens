@@ -38,13 +38,13 @@ jobs:
       - name: Run app in compose and populate db
         working-directory: ${{ github.workspace }}/infra
         run: |
-          echo DB_NAME=${{ secrets.DATABASE_NAME }} > database.env
-          echo POSTGRES_USER=${{ secrets.DATABASE_USER }} >> database.env
-          echo POSTGRES_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> database.env
-          echo DB_HOST=${{ secrets.DATABASE_HOST }} >> database.env
-          echo DB_PORT=${{ secrets.DATABASE_PORT }} >> database.env
-          echo postgres://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }} >> app.env
-          echo RACK_ENV=test >> app.env
+          echo DB_NAME=${{ secrets.DATABASE_NAME }} > .env
+          echo POSTGRES_USER=${{ secrets.DATABASE_USER }} >> .env
+          echo POSTGRES_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
+          echo DB_HOST=${{ secrets.DATABASE_HOST }} >> .env
+          echo DB_PORT=${{ secrets.DATABASE_PORT }} >> .env
+          echo postgres://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }} >> .env
+          echo RACK_ENV=test >> .env
           export IMAGE_TAG=${{ github.sha }}
           docker compose up -d
           docker compose exec app bundle exec rake db:create
