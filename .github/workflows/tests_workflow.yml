@@ -44,10 +44,11 @@ jobs:
           echo DB_HOST=${{ secrets.DATABASE_HOST }} >> .env
           echo DB_PORT=${{ secrets.DATABASE_PORT }} >> .env
           export IMAGE_TAG=${{ github.sha }}
-          docker compose up -d
-          docker compose exec app bundle exec rake db:create
-          docker compose exec app bundle exec rake db:migrate
-          docker compose exec app bundle exec rake db:seed
+          cat .env
+        # docker compose up -d
+        # docker compose exec app bundle exec rake db:create
+        # docker compose exec app bundle exec rake db:migrate
+        # docker compose exec app bundle exec rake db:seed
       - name: Run tests
         run: docker compose exec app bundle exec rspec
 
