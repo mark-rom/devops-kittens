@@ -46,7 +46,6 @@ jobs:
           echo postgres://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }} >> app.env
           echo RACK_ENV=test >> app.env
           export IMAGE_TAG=${{ github.sha }}
-          pwd && ls && cat .env | grep kittens_store_db
           docker compose up -d
           docker compose exec app bundle exec rake db:create
           docker compose exec app bundle exec rake db:migrate
