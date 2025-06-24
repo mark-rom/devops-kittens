@@ -47,6 +47,7 @@ jobs:
           echo RACK_ENV=test >> .env
           export IMAGE_TAG=${{ github.sha }}
           docker compose up -d
+          sleep 5
           docker compose ps
           docker compose logs
           docker compose exec app bundle exec rake db:create
