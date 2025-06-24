@@ -53,6 +53,7 @@ jobs:
           docker compose exec app bundle exec rake db:migrate
           docker compose exec app bundle exec rake db:seed
       - name: Run tests
+        working-directory: ${{ github.workspace }}/infra
         run: docker compose exec app bundle exec rspec
 
   # deploy:
