@@ -49,7 +49,7 @@ jobs:
           docker compose up -d
           docker compose ps
           docker compose logs
-          docker compose exec app bundle exec rake db:create --trace
+          docker compose exec app bundle exec rake db:create
           docker compose exec app bundle exec rake db:migrate
           docker compose exec app bundle exec rake db:seed
       - name: Run tests
