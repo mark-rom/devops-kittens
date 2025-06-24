@@ -43,12 +43,10 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
           echo DB_HOST=${{ secrets.DATABASE_HOST }} >> .env
           echo DB_PORT=${{ secrets.DATABASE_PORT }} >> .env
-          echo 'postgres://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }}' >> .env
+          echo DATABASE_URL=postgres://${{ secrets.DATABASE_USER }}:${{ secrets.DATABASE_PASSWORD }}@${{ secrets.DATABASE_HOST }}:${{ secrets.DATABASE_PORT }}/${{ secrets.DATABASE_NAME }} >> .env
           echo RACK_ENV=test >> .env
           export IMAGE_TAG=${{ github.sha }}
-          cat .env | grep '@'
           docker compose up -d
-          sleep 5
           docker compose ps
           docker compose logs
           docker compose exec app bundle exec rake db:create --trace
